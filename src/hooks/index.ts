@@ -1,6 +1,6 @@
 // Export common hooks
 export * from './common/use-local-storage';
-export * from './common/useLocalStorage';
+
 
 // Export UI hooks
 export * from './ui/use-mobile';

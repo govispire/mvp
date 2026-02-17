@@ -2,7 +2,9 @@
 // Exams
 export * from './exams/examData';
 export * from './exams/examNotificationData';
-export * from './exams/mockQuestionsData';
+// Export mockQuestionsData but rename 'sections' to avoid conflict with examData
+export { sections as mockQuestionSections } from './exams/mockQuestionsData';
+export type { Question } from './exams/mockQuestionsData';
 export * from './exams/quizQuestionsData';
 export * from './exams/testData';
 export * from './exams/testAnalysisData';
@@ -12,7 +14,9 @@ export * from './exams/categorySpeedDrillsData';
 
 // Courses
 export * from './courses/courseData';
-export * from './courses/expandedCourseData';
+// Export expandedCourseData but rename getCoursesByCategory to avoid conflict
+export { getCoursesByCategory as getExpandedCoursesByCategory } from './courses/expandedCourseData';
+export type { CategoryCourse } from './courses/expandedCourseData';
 export * from './courses/syllabusData';
 export * from './courses/pdfData';
 
