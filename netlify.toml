@@ -1,8 +1,9 @@
 # Netlify configuration for Vite + React application
 
 [build]
-  # The command to build your app
-  command = "npm run build"
+  # Clean install dependencies and build using npx to avoid permission issues
+  command = "npm ci && npx vite build"
+
   
   # The directory where your build output is located
   publish = "dist"
