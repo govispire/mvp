@@ -840,6 +840,9 @@ const StudentDashboard = () => {
 
         {/* Right Sidebar - Desktop Only */}
         <div className="hidden lg:block w-72 flex-shrink-0 space-y-4">
+          {/* Upcoming Live Tests */}
+          <UpcomingLiveTests />
+
           {/* Percentile Speedometer */}
           <Card className="p-6 bg-card flex flex-col items-center relative overflow-hidden">
             <h3 className="text-sm font-semibold text-muted-foreground mb-4 w-full text-left">Your Bank Exam Percentile</h3>
@@ -956,9 +959,6 @@ const StudentDashboard = () => {
               </div>
             </div>
           </Card>
-
-          {/* Upcoming Live Tests */}
-          <UpcomingLiveTests />
 
           {/* Free Test/Quiz */}
           <Card className="p-4 bg-card">
