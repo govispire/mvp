@@ -1,6 +1,7 @@
 // Export auth feature components
 export { default as AuthModal } from './components/AuthModal';
-export { default as UpdatedAuthModal } from './components/UpdatedAuthModal';
+export { CompulsoryFormModal, WelcomeMessageModal } from './components/UpdatedAuthModal';
+
 
 
 // Export auth hooks (from app/providers)
