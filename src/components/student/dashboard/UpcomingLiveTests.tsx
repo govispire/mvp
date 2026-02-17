@@ -27,14 +27,35 @@ export const UpcomingLiveTests = () => {
     ];
 
     return (
-        <Card className="p-4 bg-card border-l-4 border-l-orange-500">
-            <div className="flex items-center justify-between mb-3">
+        <Card className="p-4 bg-card border-2 border-orange-500 relative overflow-hidden shadow-lg shadow-orange-500/20">
+            {/* Glowing effect overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 via-transparent to-orange-500/5 animate-pulse"></div>
+
+            {/* Top LIVE Indicator Badge */}
+            <div className="absolute -top-1 -right-1 z-10">
+                <div className="relative">
+                    <div className="absolute inset-0 bg-red-500 rounded-full blur-md animate-pulse"></div>
+                    <div className="relative bg-gradient-to-r from-red-600 to-orange-600 text-white px-3 py-1 rounded-full text-[10px] font-bold flex items-center gap-1.5 shadow-lg">
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                        </span>
+                        LIVE
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex items-center justify-between mb-3 relative z-10">
                 <h3 className="font-semibold text-sm flex items-center gap-2">
-                    <span className="relative flex h-2 w-2">
+                    <span className="relative flex h-3 w-3">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
                     </span>
                     Upcoming Live Tests
+                    {/* Test count badge */}
+                    <span className="ml-1 bg-orange-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-bounce">
+                        {upcomingTests.length}
+                    </span>
                 </h3>
                 <span className="text-[10px] text-orange-600 font-medium bg-orange-50 px-2 py-0.5 rounded-full border border-orange-100">
                     Premium

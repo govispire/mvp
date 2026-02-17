@@ -544,12 +544,20 @@ const StudentDashboard = () => {
             </Card>
           </div>
 
-          {/* Current Affairs Section */}
+          {/* Upcoming Live Tests - Moved to Top */}
+          <div className="lg:hidden">
+            <UpcomingLiveTests />
+          </div>
+
+          {/* Exam Status Summary (Self Care) */}
+          <ExamStatusSummary />
+
+          {/* Your Current Affairs Section */}
           <Card className="p-4 bg-card group/card">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <Newspaper className="h-4 w-4 text-primary" />
-                <h3 className="font-semibold text-base">Current Affairs</h3>
+                <h3 className="font-semibold text-base">Your Current Affairs</h3>
               </div>
               <div className="flex items-center gap-2">
                 {/* Auto Slide Toggle */}
@@ -674,9 +682,6 @@ const StudentDashboard = () => {
               </div>
             )}
           </Card>
-
-          {/* Exam Status Summary (Self Care) */}
-          <ExamStatusSummary />
 
           {/* Mobile Right Sidebar Content */}
           <div className="lg:hidden space-y-4">
@@ -827,8 +832,6 @@ const StudentDashboard = () => {
                 </Button>
               )}
             </Card>
-            {/* Upcoming Live Tests - Mobile */}
-            <UpcomingLiveTests />
           </div>
         </div>
 
