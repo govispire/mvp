@@ -1034,6 +1034,7 @@ const StudentDashboard = () => {
           type={statDialogType}
           open={!!statDialogType}
           onOpenChange={(open) => !open && setStatDialogType(null)}
+          preparationStartDate={userProfile?.preparationStartDate}
         />
       )}
       {/* Post-Signup Modals */}

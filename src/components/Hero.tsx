@@ -5,12 +5,12 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import AuthModal from './auth/AuthModal';
-import { 
-  Calendar, 
-  Users, 
-  TrendingUp, 
-  Brain, 
-  Target, 
+import {
+  Calendar,
+  Users,
+  TrendingUp,
+  Brain,
+  Target,
   Award,
   BookOpen,
   Clock,
@@ -42,7 +42,7 @@ const Hero = () => {
     },
     {
       icon: Brain,
-      title: "Self-Care Tracking",
+      title: "Exam Tracker",
       description: "Monitor your mental health, study patterns, and maintain work-life balance",
       color: "bg-orange-500"
     },
@@ -78,7 +78,7 @@ const Hero = () => {
       name: "Priya Patel",
       exam: "SBI PO 2023",
       rank: "Selected",
-      quote: "The calendar feature and self-care tracking kept me motivated throughout my preparation journey."
+      quote: "The calendar feature and exam tracker kept me motivated throughout my preparation journey."
     }
   ];
 
@@ -93,7 +93,7 @@ const Hero = () => {
                 🚀 India's #1 Competitive Exam Platform
               </Badge>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-brand-darkblue">
-                Master Your Exams with 
+                Master Your Exams with
                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> AI-Powered</span> Preparation
               </h1>
               <p className="text-xl text-gray-600 max-w-lg leading-relaxed">
@@ -125,7 +125,7 @@ const Hero = () => {
                 <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
                   <Brain className="h-5 w-5 text-orange-600" />
                 </div>
-                <span className="text-sm font-medium">Self-Care Tracking</span>
+                <span className="text-sm font-medium">Exam Tracker</span>
               </div>
             </div>
 
@@ -137,10 +137,10 @@ const Hero = () => {
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[500px] max-w-[95vw]">
-                  <AuthModal activeTab="register" setActiveTab={() => {}} />
+                  <AuthModal activeTab="register" setActiveTab={() => { }} />
                 </DialogContent>
               </Dialog>
-              
+
               <Dialog>
                 <DialogTrigger asChild>
                   <Button size="lg" variant="outline" className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white transition-colors px-8 py-4 text-lg">
@@ -153,7 +153,7 @@ const Hero = () => {
                       <h2 className="text-2xl font-bold mb-2">Complete Exam Preparation Ecosystem</h2>
                       <p className="text-gray-600">Everything you need to ace your competitive exams</p>
                     </div>
-                    
+
                     <div className="grid gap-4">
                       {features.map((feature, index) => (
                         <div key={index} className="flex items-start space-x-4 p-4 rounded-lg bg-gray-50">
@@ -177,7 +177,7 @@ const Hero = () => {
           <div className="relative">
             <div className="w-full h-[400px] bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl overflow-hidden relative">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10"></div>
-              
+
               {/* Floating Cards */}
               <div className="absolute top-8 left-8 bg-white rounded-lg shadow-lg p-4 max-w-[200px] animate-float">
                 <div className="flex items-center space-x-2 mb-2">

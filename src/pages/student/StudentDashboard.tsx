@@ -15,11 +15,9 @@ import {
   FileText,
   CheckCircle,
   Trash2,
-  ArrowUpRight
 } from 'lucide-react';
 import NewsArticleDialog from '@/components/student/NewsArticleDialog';
 import StatCardDialog from '@/components/student/StatCardDialog';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { dailyQuizzes } from '@/data/dailyQuizzesData';
 import QuizAttemptIBPS, { QuizResult } from '@/components/student/quiz/QuizAttemptIBPS';
 import launchExamWindow from '@/utils/launchExam';
@@ -36,6 +34,9 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/co
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { ExamStatusSummary } from '@/components/student/dashboard/ExamStatusSummary';
+import { StatsOverview } from '@/components/student/dashboard/StatsOverview';
+import { PerformanceGraph } from '@/components/student/dashboard/PerformanceGraph';
+import { NextAction } from '@/components/student/dashboard/NextAction';
 
 interface UserProfile {
   username: string;
@@ -380,151 +381,48 @@ const StudentDashboard = () => {
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
-            <Card
-              className="p-3 bg-card cursor-pointer hover:shadow-md transition-shadow group"
-              onClick={() => setStatDialogType('journey')}
-            >
-              <div className="flex items-start justify-between mb-1">
-                <h3 className="text-xs font-medium text-muted-foreground">Total Journey Days</h3>
-                <div className="p-1.5 bg-primary/10 rounded-full text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                  <ArrowUpRight className="h-4 w-4" />
-                </div>
-              </div>
-              <p className="text-3xl font-bold text-primary">{Math.max(0, journeyDays)}</p>
-              <p className="text-xs text-muted-foreground mt-1">Since {userProfile?.preparationStartDate ? new Date(userProfile.preparationStartDate).toLocaleDateString() : 'start'}</p>
-            </Card>
-            <Card
-              className="p-3 bg-card cursor-pointer hover:shadow-md transition-shadow group"
-              onClick={() => setStatDialogType('hours')}
-            >
-              <div className="flex items-start justify-between mb-1">
-                <h3 className="text-xs font-medium text-muted-foreground">Total Study Hours</h3>
-                <div className="p-1.5 bg-primary/10 rounded-full text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                  <ArrowUpRight className="h-4 w-4" />
-                </div>
-              </div>
-              <p className="text-3xl font-bold text-primary">195</p>
-              <p className="text-xs text-muted-foreground mt-1">6+ hours today</p>
-            </Card>
-            <Card
-              className="p-3 bg-card cursor-pointer hover:shadow-md transition-shadow group"
-              onClick={() => setStatDialogType('active')}
-            >
-              <div className="flex items-start justify-between mb-1">
-                <h3 className="text-xs font-medium text-muted-foreground">Total Active Days</h3>
-                <div className="p-1.5 bg-primary/10 rounded-full text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                  <ArrowUpRight className="h-4 w-4" />
-                </div>
-              </div>
-              <p className="text-3xl font-bold text-primary">67</p>
-              <p className="text-xs text-muted-foreground mt-1">Continuously studying</p>
-            </Card>
-            <Card
-              className="p-3 bg-card cursor-pointer hover:shadow-md transition-shadow group"
-              onClick={() => setStatDialogType('tests')}
-            >
-              <div className="flex items-start justify-between mb-1">
-                <h3 className="text-xs font-medium text-muted-foreground">Total Mock Test</h3>
-                <div className="p-1.5 bg-primary/10 rounded-full text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                  <ArrowUpRight className="h-4 w-4" />
-                </div>
-              </div>
-              <p className="text-3xl font-bold text-primary">40</p>
-              <p className="text-xs text-muted-foreground mt-1">Last test 2 days ago</p>
-            </Card>
-          </div>
+          <StatsOverview
+            journeyDays={journeyDays}
+            userName={userProfile?.username || user?.name || 'Student'}
+            onCardClick={setStatDialogType}
+          />
+
+
 
           {/* Performance Section */}
           <div className="flex flex-col xl:flex-row gap-3">
             {/* Performance Graph */}
-            <Card className="p-3 bg-card flex-1">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <div className="h-4 w-4 text-primary">📊</div>
-                  <h3 className="font-semibold text-base">Performance Graph - Test/Quiz</h3>
-                </div>
-                <div className="flex items-center gap-4 text-xs">
-                  <div className="flex items-center gap-1">
-                    <div className="w-3 h-3 rounded-full bg-primary"></div>
-                    <span>Tests</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <div className="w-3 h-3 rounded-full bg-primary/50"></div>
-                    <span>Quizzes</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={performanceData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                    <XAxis
-                      dataKey="week"
-                      tick={{ fontSize: 12 }}
-                      stroke="hsl(var(--muted-foreground))"
-                    />
-                    <YAxis
-                      tick={{ fontSize: 12 }}
-                      stroke="hsl(var(--muted-foreground))"
-                      domain={[0, 100]}
-                    />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: 'hsl(var(--card))',
-                        border: '1px solid hsl(var(--border))',
-                        borderRadius: '8px'
-                      }}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="tests"
-                      stroke="hsl(var(--primary))"
-                      strokeWidth={2}
-                      dot={{ fill: 'hsl(var(--primary))', strokeWidth: 2 }}
-                      activeDot={{ r: 6 }}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="quizzes"
-                      stroke="hsl(var(--primary) / 0.5)"
-                      strokeWidth={2}
-                      dot={{ fill: 'hsl(var(--primary) / 0.5)', strokeWidth: 2 }}
-                      activeDot={{ r: 6 }}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-            </Card>
+            <PerformanceGraph data={performanceData} />
 
             {/* Target Exam Performance - Concentric Circles */}
-            <Card className="p-4 bg-card w-full xl:w-72 flex flex-col justify-between">
-              <h3 className="font-semibold text-base mb-2 flex items-center gap-2">
-                <Target className="h-4 w-4 text-primary" />
+            <Card className="p-4 bg-card w-full xl:w-72 flex flex-col justify-between shadow-sm">
+              <h3 className="font-semibold text-sm mb-2 flex items-center gap-2">
+                <div className="p-1.5 bg-primary/10 rounded-lg">
+                  <Target className="h-4 w-4 text-primary" />
+                </div>
                 Target Performance
               </h3>
 
               <div className="flex-1 flex items-center justify-center py-2">
-                <div className="relative w-48 h-48 flex items-center justify-center">
+                <div className="relative w-44 h-44 flex items-center justify-center">
                   <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
                     {/* Prelims Track & Progress (Outer) */}
-                    <circle cx="50" cy="50" r="45" fill="none" strokeWidth="6" className="text-muted/10 stroke-current" />
-                    <circle cx="50" cy="50" r="45" fill="none" strokeWidth="6" strokeLinecap="round" strokeDasharray={`${2 * Math.PI * 45}`} strokeDashoffset={`${2 * Math.PI * 45 * (1 - 0.85)}`} className="text-sky-500 stroke-current transition-all duration-1000 ease-out" />
+                    <circle cx="50" cy="50" r="45" fill="none" strokeWidth="7" stroke="hsl(var(--muted))" opacity="0.12" />
+                    <circle cx="50" cy="50" r="45" fill="none" strokeWidth="7" strokeLinecap="round" strokeDasharray={`${2 * Math.PI * 45}`} strokeDashoffset={`${2 * Math.PI * 45 * (1 - 0.85)}`} className="text-sky-500 stroke-current transition-all duration-1000 ease-out" style={{ filter: 'drop-shadow(0 0 3px rgba(14,165,233,0.3))' }} />
 
                     {/* Mains Track & Progress (Middle) */}
-                    <circle cx="50" cy="50" r="35" fill="none" strokeWidth="6" className="text-muted/10 stroke-current" />
-                    <circle cx="50" cy="50" r="35" fill="none" strokeWidth="6" strokeLinecap="round" strokeDasharray={`${2 * Math.PI * 35}`} strokeDashoffset={`${2 * Math.PI * 35 * (1 - 0.60)}`} className="text-violet-500 stroke-current transition-all duration-1000 ease-out" />
+                    <circle cx="50" cy="50" r="35" fill="none" strokeWidth="7" stroke="hsl(var(--muted))" opacity="0.12" />
+                    <circle cx="50" cy="50" r="35" fill="none" strokeWidth="7" strokeLinecap="round" strokeDasharray={`${2 * Math.PI * 35}`} strokeDashoffset={`${2 * Math.PI * 35 * (1 - 0.60)}`} className="text-violet-500 stroke-current transition-all duration-1000 ease-out" style={{ filter: 'drop-shadow(0 0 3px rgba(139,92,246,0.3))' }} />
 
                     {/* Sectional Track & Progress (Inner) */}
-                    <circle cx="50" cy="50" r="25" fill="none" strokeWidth="6" className="text-muted/10 stroke-current" />
-                    <circle cx="50" cy="50" r="25" fill="none" strokeWidth="6" strokeLinecap="round" strokeDasharray={`${2 * Math.PI * 25}`} strokeDashoffset={`${2 * Math.PI * 25 * (1 - 0.92)}`} className="text-amber-500 stroke-current transition-all duration-1000 ease-out" />
+                    <circle cx="50" cy="50" r="25" fill="none" strokeWidth="7" stroke="hsl(var(--muted))" opacity="0.12" />
+                    <circle cx="50" cy="50" r="25" fill="none" strokeWidth="7" strokeLinecap="round" strokeDasharray={`${2 * Math.PI * 25}`} strokeDashoffset={`${2 * Math.PI * 25 * (1 - 0.92)}`} className="text-amber-500 stroke-current transition-all duration-1000 ease-out" style={{ filter: 'drop-shadow(0 0 3px rgba(245,158,11,0.3))' }} />
                   </svg>
 
                   {/* Center Text */}
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className="text-xs text-muted-foreground font-medium">Overall</span>
-                    <span className="text-xl font-bold">79%</span>
+                    <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wider">Overall</span>
+                    <span className="text-2xl font-bold text-foreground leading-none mt-0.5">79%</span>
                   </div>
                 </div>
               </div>
@@ -532,14 +430,17 @@ const StudentDashboard = () => {
               {/* Legend */}
               <div className="grid grid-cols-3 gap-2 mt-2">
                 <div className="flex flex-col items-center text-center">
+                  <div className="w-2 h-2 rounded-full bg-sky-500 mb-1"></div>
                   <span className="text-[10px] text-muted-foreground font-medium mb-0.5">Prelims</span>
                   <span className="text-sm font-bold text-sky-500">85%</span>
                 </div>
                 <div className="flex flex-col items-center text-center border-l border-r border-border/50">
+                  <div className="w-2 h-2 rounded-full bg-violet-500 mb-1"></div>
                   <span className="text-[10px] text-muted-foreground font-medium mb-0.5">Mains</span>
                   <span className="text-sm font-bold text-violet-500">60%</span>
                 </div>
                 <div className="flex flex-col items-center text-center">
+                  <div className="w-2 h-2 rounded-full bg-amber-500 mb-1"></div>
                   <span className="text-[10px] text-muted-foreground font-medium mb-0.5">Sectional</span>
                   <span className="text-sm font-bold text-amber-500">92%</span>
                 </div>
@@ -683,6 +584,9 @@ const StudentDashboard = () => {
               </div>
             )}
           </Card>
+
+          {/* Next Best Action */}
+          <NextAction />
 
           {/* Mobile Right Sidebar Content */}
           <div className="lg:hidden space-y-4">
@@ -1126,6 +1030,7 @@ const StudentDashboard = () => {
           type={statDialogType}
           open={!!statDialogType}
           onOpenChange={(open) => !open && setStatDialogType(null)}
+          preparationStartDate={userProfile?.preparationStartDate}
         />
       )}
       {/* Post-Signup Modals */}

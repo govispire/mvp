@@ -42,7 +42,7 @@ const Hero = () => {
     },
     {
       icon: Brain,
-      title: "Self-Care Tracking",
+      title: "Exam Tracker",
       description: "Monitor your mental health, study patterns, and maintain work-life balance",
       color: "bg-orange-500"
     },
@@ -78,7 +78,7 @@ const Hero = () => {
       name: "Priya Patel",
       exam: "SBI PO 2023",
       rank: "Selected",
-      quote: "The calendar feature and self-care tracking kept me motivated throughout my preparation journey."
+      quote: "The calendar feature and exam tracker kept me motivated throughout my preparation journey."
     }
   ];
 
@@ -125,7 +125,7 @@ const Hero = () => {
                 <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
                   <Brain className="h-5 w-5 text-orange-600" />
                 </div>
-                <span className="text-sm font-medium">Self-Care Tracking</span>
+                <span className="text-sm font-medium">Exam Tracker</span>
               </div>
             </div>
 

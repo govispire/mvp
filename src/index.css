@@ -87,6 +87,7 @@
     padding: 0;
     width: 100%;
     overflow-x: hidden;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     /* Slightly increased from 14px for better readability while staying compact */
     font-size: 15px;
     line-height: 1.45;

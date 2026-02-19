@@ -27,12 +27,12 @@ const SelfCare = () => {
   return (
     <div className="space-y-3 p-2">
       <div className="px-1">
-        <h1 className="text-xl font-bold">Self-Care (Exam Tracker)</h1>
+        <h1 className="text-xl font-bold">Exam Tracker</h1>
         <p className="text-sm text-muted-foreground">Track your real exam applications and progress</p>
       </div>
 
       {/* Compact Progress Cards - Single Line */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
+      <div className="grid grid-cols-3 lg:grid-cols-6 gap-2">
         <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 cursor-pointer hover:shadow-md transition-shadow" onClick={() => setActiveTab('exams')}>
           <CardContent className="p-2.5">
             <div className="flex items-center gap-2">
@@ -42,6 +42,20 @@ const SelfCare = () => {
               <div className="min-w-0 flex-1">
                 <p className="text-[10px] font-medium text-blue-600 truncate">Total Exams</p>
                 <h3 className="text-lg font-bold text-blue-700 leading-none">{examMetrics.totalApplied}</h3>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-indigo-50 to-indigo-100 border-indigo-200 cursor-pointer hover:shadow-md transition-shadow">
+          <CardContent className="p-2.5">
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 bg-indigo-100 rounded-lg shrink-0">
+                <CheckSquare className="h-4 w-4 text-indigo-600" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-[10px] font-medium text-indigo-600 truncate">Exams Cleared</p>
+                <h3 className="text-lg font-bold text-indigo-700 leading-none">{examMetrics.totalExamsCleared}</h3>
               </div>
             </div>
           </CardContent>
@@ -83,7 +97,7 @@ const SelfCare = () => {
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-[10px] font-medium text-orange-600 truncate">Interviews</p>
-                <h3 className="text-lg font-bold text-orange-700 leading-none">{examMetrics.totalInterviewsAttended}</h3>
+                <h3 className="text-lg font-bold text-orange-700 leading-none">{examMetrics.totalInterviewsAppeared}</h3>
               </div>
             </div>
           </CardContent>

@@ -2,12 +2,12 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Calendar, 
-  Users, 
-  TrendingUp, 
-  Brain, 
-  Clock, 
+import {
+  Calendar,
+  Users,
+  TrendingUp,
+  Brain,
+  Clock,
   Target,
   BookOpen,
   BarChart3,
@@ -61,7 +61,7 @@ const features = [
     ]
   },
   {
-    title: "Self-Care & Wellness Tracking",
+    title: "Exam Tracker & Wellness",
     description: "Monitor your mental health, study patterns, stress levels, and maintain optimal work-life balance",
     icon: Brain,
     color: "bg-orange-50",
@@ -121,7 +121,7 @@ const FeatureSection = () => {
             🚀 Comprehensive Features
           </Badge>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Everything You Need for 
+            Everything You Need for
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Exam Success</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
@@ -143,7 +143,7 @@ const FeatureSection = () => {
             </Card>
           ))}
         </div>
-        
+
         {/* Feature Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {features.map((feature, index) => (

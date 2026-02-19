@@ -116,7 +116,7 @@ export const useSelfCareExams = () => {
       isArchived: false,
       createdAt: new Date().toISOString().split('T')[0]
     };
-    
+
     setExams(prev => [...prev, newExam]);
     toast({
       title: "Exam Added",
@@ -125,7 +125,7 @@ export const useSelfCareExams = () => {
   };
 
   const updateExam = (id: string, updates: Partial<ExamApplication>) => {
-    setExams(prev => prev.map(exam => 
+    setExams(prev => prev.map(exam =>
       exam.id === id ? { ...exam, ...updates } : exam
     ));
     toast({
@@ -143,7 +143,7 @@ export const useSelfCareExams = () => {
   };
 
   const archiveExam = (id: string) => {
-    setExams(prev => prev.map(exam => 
+    setExams(prev => prev.map(exam =>
       exam.id === id ? { ...exam, isArchived: true } : exam
     ));
     toast({
@@ -161,7 +161,7 @@ export const useSelfCareExams = () => {
       if (exam.id === examId) {
         const newStages = [...exam.stages];
         newStages[stageIndex] = { ...newStages[stageIndex], ...updates };
-        
+
         // Enhanced Auto-progression logic with proper N/A handling
         if (updates.status === 'cleared' && !isFinalStage(newStages, stageIndex)) {
           // Auto-enable next stage if current is cleared (but not for final stage)
@@ -169,22 +169,22 @@ export const useSelfCareExams = () => {
             newStages[stageIndex + 1] = { ...newStages[stageIndex + 1], status: 'pending' };
           }
         }
-        
+
         // If a stage is failed or marked as N/A, set all subsequent stages to N/A and final to not-selected
         if (updates.status === 'not-cleared' || updates.status === 'n/a') {
           for (let i = stageIndex + 1; i < newStages.length; i++) {
             if (!isFinalStage(newStages, i)) {
               // Set subsequent non-final stages to N/A
-              newStages[i] = { 
-                ...newStages[i], 
+              newStages[i] = {
+                ...newStages[i],
                 status: 'n/a',
                 score: undefined,
                 notes: undefined
               };
             } else {
               // For final stage, mark as not-selected if any previous stage failed
-              newStages[i] = { 
-                ...newStages[i], 
+              newStages[i] = {
+                ...newStages[i],
                 status: 'not-selected',
                 score: undefined,
                 notes: undefined
@@ -192,19 +192,19 @@ export const useSelfCareExams = () => {
             }
           }
         }
-        
+
         // Auto-update final status based on stages
         let finalStatus: 'selected' | 'not-selected' | 'pending' = 'pending';
-        
+
         // Check if any non-final stage failed
-        const hasFailedStage = newStages.some((stage, idx) => 
+        const hasFailedStage = newStages.some((stage, idx) =>
           !isFinalStage(newStages, idx) && (stage.status === 'not-cleared' || stage.status === 'n/a')
         );
-        
+
         // Check final stage status
         const finalStageIndex = newStages.length - 1;
         const finalStage = newStages[finalStageIndex];
-        
+
         if (hasFailedStage) {
           finalStatus = 'not-selected';
           // Auto-update final stage to not-selected if any previous stage failed
@@ -216,12 +216,12 @@ export const useSelfCareExams = () => {
         } else if (finalStage.status === 'not-selected') {
           finalStatus = 'not-selected';
         }
-        
+
         return { ...exam, stages: newStages, finalStatus };
       }
       return exam;
     }));
-    
+
     toast({
       title: "Stage Updated",
       description: "Exam stage has been updated successfully.",
@@ -230,21 +230,20 @@ export const useSelfCareExams = () => {
 
   const getMetrics = () => {
     const allExams = [...exams, ...archivedExams];
-    
+
     return {
       totalApplied: allExams.length,
-      totalPrelimsCleared: allExams.filter(exam => 
-        exam.stages.some(stage => stage.status === 'cleared')
+      totalExamsCleared: allExams.filter(exam => exam.finalStatus === 'selected').length,
+      totalPrelimsCleared: allExams.filter(exam =>
+        exam.stages.some(stage => stage.name.toLowerCase().includes('prelim') && stage.status === 'cleared')
       ).length,
-      totalMainsCleared: allExams.filter(exam => 
-        exam.stages.filter(stage => stage.status === 'cleared').length >= 2
+      totalMainsCleared: allExams.filter(exam =>
+        exam.stages.some(stage => stage.name.toLowerCase().includes('main') && stage.status === 'cleared')
       ).length,
-      totalInterviewsAttended: allExams.filter(exam => 
-        exam.stages.some(stage => stage.name.toLowerCase().includes('interview') && stage.status === 'cleared')
+      totalInterviewsAppeared: allExams.filter(exam =>
+        exam.stages.some(stage => stage.name.toLowerCase().includes('interview') && (stage.status === 'cleared' || stage.status === 'not-cleared'))
       ).length,
-      totalSelected: allExams.filter(exam => exam.finalStatus === 'selected').length,
       totalAmountSpent: allExams
-        .filter(exam => exam.paymentStatus === 'paid')
         .reduce((sum, exam) => sum + parseFloat(exam.examFeeAmount || '0'), 0),
     };
   };

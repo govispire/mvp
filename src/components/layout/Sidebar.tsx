@@ -201,7 +201,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role, basePath, collapsed }) => {
 
 
           { icon: <Bell size={18} />, label: 'Exam Notifications', to: `${basePath}/exam-notifications` },
-          { icon: <Heart size={18} />, label: 'Self-Care', to: `${basePath}/self-care` },
+          { icon: <Heart size={18} />, label: 'Exam Tracker', to: `${basePath}/self-care` },
           { icon: <FileText size={18} />, label: 'PDF Courses', to: `${basePath}/pdf-courses` },
         ];
       case 'mentor':

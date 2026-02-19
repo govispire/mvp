@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useSelfCareExams, ExamApplication } from '@/hooks/useSelfCareExams';
 import { Link, useNavigate } from 'react-router-dom';
-import { Check, ArrowRight, Plus, Trophy, ChevronRight, Info } from 'lucide-react';
+import { Check, ArrowRight, Plus, Trophy, ChevronRight, Info, RefreshCcw } from 'lucide-react';
 import {
     Tooltip,
     TooltipContent,
@@ -86,8 +86,7 @@ export const ExamStatusSummary = () => {
                                             <p className="text-[10px] text-muted-foreground/80 font-bold uppercase tracking-wider bg-muted/50 px-2 py-0.5 rounded-md inline-block">{exam.category}</p>
                                         </div>
                                         <span className={`text-[10px] px-2.5 py-1.5 rounded-lg font-bold border-2 shadow-sm ml-2 ${isSelected ? 'bg-gradient-to-br from-green-50 to-green-100 text-green-700 border-green-300' :
-                                            isNotSelected ? 'bg-gradient-to-br from-red-50 to-red-100 text-red-700 border-red-300' :
-                                                'bg-gradient-to-br from-primary/10 to-primary/20 text-primary border-primary/30'
+                                            isNotSelected ? 'bg-gradient-to-br from-amber-50 to-amber-100 text-amber-700 border-amber-300' : 'bg-gradient-to-br from-primary/10 to-primary/20 text-primary border-primary/30'
                                             }`}>
                                             {exam.finalStatus === 'pending' ? '🔥 Active' : exam.finalStatus}
                                         </span>
@@ -128,7 +127,7 @@ export const ExamStatusSummary = () => {
 
                                                                     <div
                                                                         className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border-3 transition-all duration-300 shadow-lg relative z-20 ${isCompleted ? 'bg-gradient-to-br from-green-400 to-green-600 border-green-300 text-white scale-95' :
-                                                                            isFailed ? 'bg-gradient-to-br from-red-400 to-red-600 border-red-300 text-white' :
+                                                                            isFailed ? 'bg-gradient-to-br from-amber-400 to-amber-600 border-amber-300 text-white' : // Softened to Amber
                                                                                 isCurrent ? 'bg-gradient-to-br from-primary to-primary/90 border-primary-foreground text-white scale-110 shadow-primary/30' :
                                                                                     'bg-muted/70 border-muted-foreground/30 text-muted-foreground group-hover/node:border-primary/40 group-hover/node:bg-primary/10 group-hover/node:text-primary'
                                                                             }`}
@@ -136,7 +135,7 @@ export const ExamStatusSummary = () => {
                                                                         {isCompleted ? (
                                                                             <Check className="h-4 w-4" strokeWidth={3} />
                                                                         ) : isFailed ? (
-                                                                            <span className="text-white text-sm">✕</span>
+                                                                            <RefreshCcw className="h-4 w-4" strokeWidth={2.5} /> // Changed X to Refresh
                                                                         ) : (
                                                                             <span>{idx + 1}</span>
                                                                         )}

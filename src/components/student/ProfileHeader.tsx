@@ -73,7 +73,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ onToggleSidebar }) => {
     { icon: <FileText size={18} />, label: 'Current Affairs', to: '/student/current-affairs' },
 
     { icon: <BarChart2 size={18} />, label: 'Performance Analytics', to: '/student/performance' },
-    { icon: <Heart size={18} />, label: 'Self-Care', to: '/student/self-care' },
+    { icon: <Heart size={18} />, label: 'Exam Tracker', to: '/student/self-care' },
     { icon: <FileText size={18} />, label: 'PDF Courses', to: '/student/pdf-courses' },
     { icon: <FileQuestion size={18} />, label: 'Doubt Forum', to: '/student/doubt-forum' },
     { icon: <HelpCircle size={18} />, label: 'FAQ', to: '/student/faq' },
@@ -114,8 +114,8 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ onToggleSidebar }) => {
                           <Link
                             to={item.to}
                             className={`flex items-center gap-2 sm:gap-3 rounded-lg px-2 sm:px-3 py-2 sm:py-3 text-sm transition-all hover:bg-gray-100 touch-manipulation ${location.pathname === item.to
-                                ? "bg-purple-100 text-purple-700 font-medium"
-                                : "text-gray-700"
+                              ? "bg-purple-100 text-purple-700 font-medium"
+                              : "text-gray-700"
                               }`}
                           >
                             {item.icon}
