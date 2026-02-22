@@ -32,6 +32,7 @@ import SyllabusPage from '@/pages/student/SyllabusPage';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import NotFound from '@/pages/NotFound';
 import ExamWindow from '@/pages/student/ExamWindow';
+import AllExams from '@/pages/student/AllExams';
 
 import TestWindow from '@/pages/student/TestWindow';
 
@@ -63,6 +64,7 @@ const StudentRoutes = () => {
           <Route path="/tests" element={<StudentTests />} />
           <Route path="/tests/:category" element={<StudentTests />} />
           <Route path="/tests/:category/:examId" element={<ExamDetail />} />
+          <Route path="/all-exams" element={<AllExams />} />
           <Route path="/mentorship" element={<MentorshipDashboard />} />
           <Route path="/mentorship/dashboard" element={<MentorshipDashboard />} />
           <Route path="/current-affairs" element={<CurrentAffairs />} />

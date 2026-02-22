@@ -32,6 +32,7 @@ import { CompulsoryFormModal, WelcomeMessageModal } from '@/components/auth/Upda
 import { allArticles } from '@/components/current-affairs/articlesData';
 import { useSavedArticles } from '@/hooks/useSavedArticles';
 import { UpcomingLiveTests } from '@/components/student/dashboard/UpcomingLiveTests';
+import { TrendingExams } from '@/components/student/dashboard/TrendingExams';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
@@ -551,6 +552,9 @@ const StudentDashboard = () => {
 
           {/* Exam Status Summary (Self Care) */}
           <ExamStatusSummary />
+
+          {/* Trending Exams Section */}
+          <TrendingExams />
 
           {/* Your Current Affairs Section */}
           <Card className="p-4 bg-card group/card">

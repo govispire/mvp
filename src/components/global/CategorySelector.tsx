@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check, Settings, Filter, BookOpen, Package } from 'lucide-react';
+import { Check, Plus, Settings, Filter, BookOpen, Package } from 'lucide-react';
 import { useExamCategoryContext } from '@/app/providers';
 
 type FilterType = 'all' | 'regular' | 'combo';
@@ -302,10 +302,10 @@ export const CategorySelector: React.FC = () => {
       const firstCategory = allCategories.find(cat => cat.id === selectedCategories[0]);
       const firstName = firstCategory ? firstCategory.name : 'Category';
       const additionalCount = selectedCategories.length - 1;
-      
+
       // Truncate first category name for mobile space
       const truncatedName = firstName.length > 10 ? firstName.substring(0, 10) + '...' : firstName;
-      
+
       return `${truncatedName} & ${additionalCount} more`;
     }
   };
@@ -320,12 +320,12 @@ export const CategorySelector: React.FC = () => {
           </span>
         </Button>
       </DialogTrigger>
-      
+
       <DialogContent className="w-[95vw] max-w-5xl max-h-[90vh] overflow-y-auto p-3 sm:p-6">
         <DialogHeader className="pb-4">
           <DialogTitle className="text-lg sm:text-xl">Select Exam Categories</DialogTitle>
         </DialogHeader>
-        
+
         <div className="space-y-4 sm:space-y-6">
           {/* Current Selection */}
           {selectedCategories.length > 0 && (
@@ -377,11 +377,10 @@ export const CategorySelector: React.FC = () => {
             {filteredCategories.map((category) => (
               <Card
                 key={category.id}
-                className={`cursor-pointer transition-all duration-200 hover:shadow-md touch-manipulation ${
-                  selectedCategories.includes(category.id)
+                className={`cursor-pointer transition-all duration-200 hover:shadow-md touch-manipulation ${selectedCategories.includes(category.id)
                     ? 'ring-2 ring-blue-500 bg-blue-50'
                     : 'hover:bg-gray-50'
-                }`}
+                  }`}
                 onClick={() => toggleCategory(category.id)}
               >
                 <CardHeader className="pb-2 px-3 sm:px-4 pt-3 sm:pt-4">
@@ -408,18 +407,24 @@ export const CategorySelector: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                    {selectedCategories.includes(category.id) && (
-                      <div className="bg-blue-500 text-white rounded-full p-1 flex-shrink-0">
-                        <Check size={12} className="sm:w-3 sm:h-3" />
-                      </div>
-                    )}
+                    <div
+                      className={`rounded-full p-1 flex-shrink-0 border-2 transition-colors duration-200 ${selectedCategories.includes(category.id)
+                          ? 'bg-blue-500 border-blue-500 text-white'
+                          : 'bg-white border-gray-300 text-gray-400 hover:border-blue-400 hover:text-blue-400'
+                        }`}
+                    >
+                      {selectedCategories.includes(category.id)
+                        ? <Check size={14} className="sm:w-[14px] sm:h-[14px]" />
+                        : <Plus size={14} className="sm:w-[14px] sm:h-[14px]" />
+                      }
+                    </div>
                   </div>
                 </CardHeader>
                 <CardContent className="pt-0 px-3 sm:px-4 pb-3 sm:pb-4">
                   <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3 line-clamp-2 leading-relaxed">
                     {category.description}
                   </p>
-                  
+
                   {/* Combo pack pricing */}
                   {category.isCombo && (
                     <div className="mb-2 sm:mb-3 p-2 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg">
@@ -430,7 +435,7 @@ export const CategorySelector: React.FC = () => {
                       <p className="text-[10px] sm:text-xs text-purple-600 mt-1">Special Combo Offer!</p>
                     </div>
                   )}
-                  
+
                   <div className="space-y-1 sm:space-y-1.5">
                     <div className="flex justify-between text-[10px] sm:text-xs text-gray-500">
                       <span>{category.studentsEnrolled.toLocaleString()} students</span>
@@ -444,14 +449,14 @@ export const CategorySelector: React.FC = () => {
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row justify-between gap-3 pt-4 border-t">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               onClick={() => setSelectedCategories([])}
               className="w-full sm:w-auto text-sm"
             >
               Clear All
             </Button>
-            <Button 
+            <Button
               onClick={handleSave}
               className="w-full sm:w-auto text-sm"
             >
